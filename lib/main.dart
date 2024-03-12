@@ -24,7 +24,14 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var isClicked = [1,1,1,1];
+  var isClicked = [1, 1, 1, 1];
+
+  void setClicked(index) {
+    setState(() {
+      isClicked = [1, 1, 1, 1];
+      isClicked[index] = 2;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,40 +39,30 @@ class MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(),
         body: Column(children: [
-          TextWidget(index: 0, value: isClicked),
-          TextWidget(index: 1, value: isClicked),
-          TextWidget(index: 2, value: isClicked),
-          TextWidget(index: 3, value: isClicked),
+          TextRow(1, Colors.blue),
+          TextRow(2, Colors.red),
+          TextRow(3, Colors.green),
+          TextRow(4, Colors.yellow),
         ]),
       ),
     );
   }
-}
 
-class TextWidget extends StatelessWidget {
-  final List<int> value;
-  final int index;
-
-  const TextWidget({super.key, required this.value, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
+  // ignore: non_constant_identifier_names
+  Expanded TextRow(index, color) {
     return Expanded(
-      flex: value[index],
+      flex: isClicked[index - 1],
       child: GestureDetector(
-        child: Row(children: [
-          Column(
-            children: [
-              Text(value.toString()),
-              Text(key.toString()),
-              Text('Text'),
-            ],
-          )
-        ]),
-        onTap: () {
-          value[index] = 2;
-          print("Clicked");
-        },
+        onTap: () => {setClicked(index - 1)},
+        child: Container(
+            color: color,
+            child: const Row(children: [
+              Column(
+                children: [
+                  Text('Text'),
+                ],
+              )
+            ])),
       ),
     );
   }
