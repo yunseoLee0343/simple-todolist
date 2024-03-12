@@ -16,17 +16,26 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    var isClicked = 2;
+  State<StatefulWidget> createState() => MyAppState();
+}
 
+class MyAppState extends State<MyApp> {
+  var isClicked = [1,1,1,1];
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(),
         body: Column(children: [
-          TextWidget(value: isClicked),
+          TextWidget(index: 0, value: isClicked),
+          TextWidget(index: 1, value: isClicked),
+          TextWidget(index: 2, value: isClicked),
+          TextWidget(index: 3, value: isClicked),
         ]),
       ),
     );
@@ -34,21 +43,30 @@ class MyApp extends StatelessWidget {
 }
 
 class TextWidget extends StatelessWidget {
-  final int value;
-  const TextWidget({super.key, required this.value});
+  final List<int> value;
+  final int index;
+
+  const TextWidget({super.key, required this.value, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: value,
-      child: Row(children: [
-        Column(
-          children: [
-            Text(value.toString()),
-            Text('Text'),
-          ],
-        )
-      ]),
+      flex: value[index],
+      child: GestureDetector(
+        child: Row(children: [
+          Column(
+            children: [
+              Text(value.toString()),
+              Text(key.toString()),
+              Text('Text'),
+            ],
+          )
+        ]),
+        onTap: () {
+          value[index] = 2;
+          print("Clicked");
+        },
+      ),
     );
   }
 }
