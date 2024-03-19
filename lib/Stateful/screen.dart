@@ -20,7 +20,7 @@ class StatefulApp extends StatefulWidget {
   State<StatefulWidget> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<StatefulApp> {
+class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin {
   List items = ["To do", "To schedule", "To delegate", "To delete"];
   List<Color> itemColors = [
     Color(0xffFF8181),
@@ -56,6 +56,22 @@ class _MyAppState extends State<StatefulApp> {
               );
             }),
           ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class CreatePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Appbar"),
         ),
       ),
     );
