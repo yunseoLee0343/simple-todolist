@@ -1,4 +1,17 @@
+import 'package:dorun_2th_flutter_study/Stateful/route.dart';
+import 'package:dorun_2th_flutter_study/Stateful/widgets.dart';
 import 'package:flutter/material.dart';
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routerConfig: router,
+    );
+  }
+}
 
 class StatefulApp extends StatefulWidget {
   const StatefulApp({Key? key}) : super(key: key);
@@ -17,6 +30,12 @@ class _MyAppState extends State<StatefulApp> {
   ];
   List flexVals = [1, 1, 1, 1];
 
+  void updateFlexValue(int index, int flexValue) {
+    setState(() {
+      flexVals[index] = flexValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,11 +44,15 @@ class _MyAppState extends State<StatefulApp> {
           child: Column(
             children: List.generate(items.length, (index) {
               return Expanded(
-                flex: 1,
+                flex: flexVals[index],
                 child: TodoCard(
                   title: items[index],
                   color: itemColors[index],
-                  fontFamily: "Jalnan",),
+                  fontFamily: "Jalnan",
+                  index: index,
+                  flexVals: flexVals,
+                  updateFlexValue: updateFlexValue,
+                ),
               );
             }),
           ),
