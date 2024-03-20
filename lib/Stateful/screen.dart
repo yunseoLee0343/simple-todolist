@@ -22,6 +22,14 @@ class StatefulApp extends StatefulWidget {
 
 class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin {
   List items = ["To do", "To schedule", "To delegate", "To delete"];
+  List subItems = [
+    "Urget, Important Things.",
+    "Not Urgent, Important Things.",
+    "Urgent, Not Important Things.",
+    "Not Urgent, Not Important THings."
+  ];
+  List copiedSubItems = [];
+
   List<Color> itemColors = [
     Color(0xffFF8181),
     Color(0xffFCE38A),
@@ -32,7 +40,27 @@ class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin 
 
   void updateFlexValue(int index, int flexValue) {
     setState(() {
-      flexVals[index] = flexValue;
+      for(int i=0; i<flexVals.length; i++) {
+        if(i == index) flexVals[i] = flexValue;
+        else flexVals[i] = 1;
+      }
+    });
+  }
+
+  void updateSubTitle(int index) {
+    setState(() {
+      for(int i=0; i<subItems.length; i++) {
+          if(i == index) copiedSubItems[i] = subItems[i];
+          else copiedSubItems[i] = "";
+      }
+    });
+  }
+
+  void restoreSubTitle() {
+    setState(() {
+      for(int i=0; i<subItems.length; i++) {
+        copiedSubItems[i] = subItems[i];
+      }
     });
   }
 
@@ -47,11 +75,14 @@ class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin 
                 flex: flexVals[index],
                 child: TodoCard(
                   title: items[index],
+                  subTitle: copiedSubItems[index],
                   color: itemColors[index],
                   fontFamily: "Jalnan",
                   index: index,
                   flexVals: flexVals,
                   updateFlexValue: updateFlexValue,
+                  updateSubTitle: updateSubTitle,
+                  restoreSubTitle: restoreSubTitle,
                 ),
               );
             }),
