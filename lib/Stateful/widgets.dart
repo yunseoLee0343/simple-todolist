@@ -38,7 +38,7 @@ class _TodoCardState extends State<TodoCard> {
         flexed = !flexed;
         widget.updateSubTitle(widget.index, flexed);
 
-        if(flexed) widget.updateFlexValue(widget.index, 5);
+        if(flexed) widget.updateFlexValue(widget.index, 4); //5 이상일 경우 Overflow 발생. 이슈 등록 필요.
         else widget.updateFlexValue(widget.index, 1);
       },
       child: Container(
