@@ -9,10 +9,19 @@ class TodoCard extends StatefulWidget {
   int index = 0;
   List flexVals = [];
   final Function(int, int) updateFlexValue;
-  final Function(int) updateSubTitle;
-  final Function() restoreSubTitle;
+  final Function(int, bool) updateSubTitle;
 
-  TodoCard({super.key, required this.title, required this.subTitle, required this.color, required this.fontFamily, required this.index, required this.flexVals, required this.updateFlexValue, required this.updateSubTitle, required this.restoreSubTitle,});
+  TodoCard({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.color,
+    required this.fontFamily,
+    required this.index,
+    required this.flexVals,
+    required this.updateFlexValue,
+    required this.updateSubTitle,
+  });
 
   @override
   State<StatefulWidget> createState() => _TodoCardState();
@@ -27,28 +36,32 @@ class _TodoCardState extends State<TodoCard> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         flexed = !flexed;
-        if(flexed) {
-          widget.updateFlexValue(widget.index, 5);
-          widget.updateSubTitle(widget.index);
-        }
-        else {
-          widget.restoreSubTitle();
-          widget.updateFlexValue(widget.index, 1);
-        }
+        widget.updateSubTitle(widget.index, flexed);
+
+        if(flexed) widget.updateFlexValue(widget.index, 5);
+        else widget.updateFlexValue(widget.index, 1);
       },
-      child: ListTile(
-        tileColor: widget.color,
-        title: Text(
-          widget.title,
-          style: TextStyle(fontFamily: widget.fontFamily, fontSize: 30),
-        ),
-        subtitle: Text(
-          widget.subTitle,
-          style: TextStyle(fontFamily: widget.fontFamily),
-        ),
-        trailing: IconButton(
-          icon: const Icon(Icons.add),
-          onPressed: () => context.go('/create'),
+      child: Container(
+        color: widget.color,
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            ListTile(
+              tileColor: widget.color,
+              title: Text(
+                widget.title,
+                style: TextStyle(fontFamily: widget.fontFamily, fontSize: 30),
+              ),
+              subtitle: Text(
+                widget.subTitle,
+                style: TextStyle(fontFamily: widget.fontFamily),
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () => context.go('/create'),
+              ),
+            ),
+          ],
         ),
       ),
     );

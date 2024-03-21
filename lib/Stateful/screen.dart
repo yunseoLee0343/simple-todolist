@@ -21,21 +21,30 @@ class StatefulApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin {
-  List items = ["To do", "To schedule", "To delegate", "To delete"];
-  List subItems = [
-    "Urget, Important Things.",
+  // immutable
+  static const List items = [
+    "To do",
+    "To schedule",
+    "To delegate",
+    "To delete"
+  ];
+  static const List subItems = [
+    "Urgent, Important Things.",
     "Not Urgent, Important Things.",
     "Urgent, Not Important Things.",
-    "Not Urgent, Not Important THings."
+    "Not Urgent, Not Important Things."
   ];
-  List copiedSubItems = [];
-
-  List<Color> itemColors = [
+  static const List<Color> itemColors = [
     Color(0xffFF8181),
     Color(0xffFCE38A),
     Color(0xffEAFFD0),
     Color(0xff95E1D3)
   ];
+
+  // for TodoCard's subTitle to disappear
+  List copiedSubItems = [];
+
+  // for TodoCard's reactive size
   List flexVals = [1, 1, 1, 1];
 
   void updateFlexValue(int index, int flexValue) {
@@ -47,25 +56,26 @@ class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin 
     });
   }
 
-  void updateSubTitle(int index) {
+  void updateSubTitle(int index, bool flexed) {
     setState(() {
       for(int i=0; i<subItems.length; i++) {
-          if(i == index) copiedSubItems[i] = subItems[i];
-          else copiedSubItems[i] = "";
-      }
-    });
-  }
-
-  void restoreSubTitle() {
-    setState(() {
-      for(int i=0; i<subItems.length; i++) {
-        copiedSubItems[i] = subItems[i];
+        if(flexed && i != index) {
+          copiedSubItems[i] = "";
+        } else {
+          copiedSubItems[i] = subItems[i];
+        }
       }
     });
   }
 
   @override
+  void initState() {
+    copiedSubItems = List.from(subItems);
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
@@ -82,7 +92,6 @@ class _MyAppState extends State<StatefulApp> with AutomaticKeepAliveClientMixin 
                   flexVals: flexVals,
                   updateFlexValue: updateFlexValue,
                   updateSubTitle: updateSubTitle,
-                  restoreSubTitle: restoreSubTitle,
                 ),
               );
             }),
