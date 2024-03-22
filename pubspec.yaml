@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  go_router: ^13.2.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -78,7 +80,7 @@ flutter:
     - family: Jalnan
       fonts:
           - asset: assets/fonts/Jalnan2TTF.ttf
-  #       - asset: fonts/Schyler-Regular.ttf
+  #        - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
