@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Stateful/home.dart';
+import 'Stateful/screens.dart';
 
 // 배경1: #FF8181
 // 폰트1: #077522
@@ -15,5 +15,5 @@ import 'Stateful/home.dart';
 // 폰트4: #569889
 
 void main() {
-  runApp(StatefulApp());
+  runApp(MyApp());
 }
