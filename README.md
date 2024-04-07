@@ -1,16 +1,27 @@
-# dorun_2th_flutter_study
+# Simple Todolist App
+- The copyright of the app design belongs to others.
+---
 
-A new Flutter project.
+### How works
+##### Overall,
+<img src="readMeAssets/total.png" height="500"/>
 
-## Getting Started
+##### In detail,
+![detail.png](readMeAssets%2Fdetail.png)
 
-This project is a starting point for a Flutter application.
+### Structure
+```agsl
+- main.dart
+- route.dart // Used GoRoute using params
+- Model
+  - models.dart // Contains model and repository
+- View
+  - screens.dart
+  - widgets.dart
+```
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
